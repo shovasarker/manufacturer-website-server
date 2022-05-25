@@ -25,6 +25,7 @@ app.get('/part/:id', partsController.get_part_by_id)
 app.get('/review', reviewsController.get_reviews)
 
 app.post('/order', VerifyJWT, ordersController.add_new_order)
+app.post('/order/:email', VerifyJWT, ordersController.get_order_by_email)
 
 app.listen(port, () => {
   console.log('Server is Ruuning on port, ', port)
