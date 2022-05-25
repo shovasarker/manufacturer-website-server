@@ -4,6 +4,8 @@ require('dotenv').config()
 const userController = require('./controllers/UserController')
 const partsController = require('./controllers/PartsController')
 const reviewsController = require('./controllers/ReviewController')
+const bookingsController = require('./controllers/BookingController')
+const VerifyJWT = require('./middleware/VerifyJWT')
 
 const port = process.env.PORT || 5000
 const app = express()
@@ -15,11 +17,14 @@ app.get('/', (req, res) => {
   res.send('Manufacturer Website Server is Running')
 })
 app.put('/user/:email', userController.update_user)
+
 app.get('/part', partsController.get_parts)
 app.get('/part/search', partsController.get_part_by_name)
 app.get('/part/:id', partsController.get_part_by_id)
 
 app.get('/review', reviewsController.get_reviews)
+
+app.post('/booking', VerifyJWT, bookingsController.add_booking)
 
 app.listen(port, () => {
   console.log('Server is Ruuning on port, ', port)
