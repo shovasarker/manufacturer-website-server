@@ -10,7 +10,12 @@ const getCollection = async () => {
 exports.add_new_order = async (req, res) => {
   try {
     const collection = await getCollection()
-    const newOrder = req.body
+    const order = req.body
+    const newOrder = {
+      ...order,
+      paid: false,
+      status: 'Unpaid',
+    }
     const result = await collection.insertOne(newOrder)
 
     res.send(result)
