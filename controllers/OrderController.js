@@ -3,15 +3,15 @@ const { ObjectId } = require('mongodb')
 
 const getCollection = async () => {
   await client.connect()
-  const bookingCollection = client.db('abacus-parts').collection('bookings')
-  return bookingCollection
+  const orderCollection = client.db('abacus-parts').collection('orders')
+  return orderCollection
 }
 
-exports.add_booking = async (req, res) => {
+exports.add_new_order = async (req, res) => {
   try {
     const collection = await getCollection()
-    const newBooking = req.body
-    const result = await collection.insertOne(newBooking)
+    const newOrder = req.body
+    const result = await collection.insertOne(newOrder)
 
     res.send(result)
   } catch (error) {

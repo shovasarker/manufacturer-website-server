@@ -4,7 +4,7 @@ require('dotenv').config()
 const userController = require('./controllers/UserController')
 const partsController = require('./controllers/PartsController')
 const reviewsController = require('./controllers/ReviewController')
-const bookingsController = require('./controllers/BookingController')
+const ordersController = require('./controllers/OrderController')
 const VerifyJWT = require('./middleware/VerifyJWT')
 
 const port = process.env.PORT || 5000
@@ -24,7 +24,7 @@ app.get('/part/:id', partsController.get_part_by_id)
 
 app.get('/review', reviewsController.get_reviews)
 
-app.post('/booking', VerifyJWT, bookingsController.add_booking)
+app.post('/order', VerifyJWT, ordersController.add_new_order)
 
 app.listen(port, () => {
   console.log('Server is Ruuning on port, ', port)
