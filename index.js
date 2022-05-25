@@ -17,11 +17,11 @@ app.get('/', (req, res) => {
 
 const run = async () => {
   try {
-    await client.connect()
+    // await client.connect()
     app.put('/user/:email', userController.update_user)
 
     app.get('/part', (req, res) => {
-      res.send('ROute Working')
+      res.send('Route Working')
     })
   } finally {
   }
