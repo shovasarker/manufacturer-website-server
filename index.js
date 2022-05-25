@@ -27,7 +27,7 @@ app.get('/part', partsController.get_parts)
 //   }
 // }
 
-run().catch(console.dir)
+// run().catch(console.dir)
 
 app.listen(port, () => {
   console.log('Server is Ruuning on port, ', port)
