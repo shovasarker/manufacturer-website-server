@@ -13,6 +13,6 @@ exports.get_parts = async (req, res) => {
   } catch (error) {
     console.log(error)
   } finally {
-    await connect.close()
+    await client.close()
   }
 }
