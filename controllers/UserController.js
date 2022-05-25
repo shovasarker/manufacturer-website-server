@@ -1,4 +1,5 @@
 const client = require('../client.js')
+const jwt = require('jsonwebtoken')
 
 const userCollection = client.db('abacus-parts').collection('users')
 
@@ -19,5 +20,9 @@ exports.update_user = async (req, res) => {
 
   const result = await userCollection.updateOne(filter, updatedDoc, options)
 
-  res.send(result)
+  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: '1d',
+  })
+
+  res.send({ result, accessToken: accessToken })
 }
