@@ -22,6 +22,7 @@ const run = async () => {
 
     app.get('/part', (req, res) => {
       res.send('Route Working')
+      console.log(__dirname)
     })
   } finally {
   }
