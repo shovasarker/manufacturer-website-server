@@ -6,6 +6,20 @@ const getCollection = async () => {
   return reviewsCollection
 }
 
+exports.add_review = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const review = req.body
+    const result = await collection.insertOne(review)
+
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}
+
 exports.get_reviews = async (req, res) => {
   try {
     const collection = await getCollection()
@@ -20,6 +34,7 @@ exports.get_reviews = async (req, res) => {
     await client.close()
   }
 }
+
 exports.get_reviews_by_email = async (req, res) => {
   try {
     const collection = await getCollection()

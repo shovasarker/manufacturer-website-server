@@ -22,6 +22,7 @@ app.get('/part', partsController.get_parts)
 app.get('/part/search', partsController.get_part_by_name)
 app.get('/part/:id', partsController.get_part_by_id)
 
+app.post('/review', VerifyJWT, reviewsController.add_review)
 app.get('/review', reviewsController.get_reviews)
 app.get('/review/:email', VerifyJWT, reviewsController.get_reviews_by_email)
 
