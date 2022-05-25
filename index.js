@@ -1,9 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
-const client = require('./client')
-const userController = require('./controllers/UserController')
-const partsController = require('./controllers/PartsController')
+const client = require(__dirname + '/client')
+const userController = require(__dirname + '/controllers/UserController')
+const partsController = require(__dirname + '/controllers/PartsController')
 
 const port = process.env.PORT || 5000
 const app = express()
@@ -17,13 +17,10 @@ app.get('/', (req, res) => {
 
 const run = async () => {
   try {
-    // await client.connect()
+    await client.connect()
     app.put('/user/:email', userController.update_user)
 
-    app.get('/part', (req, res) => {
-      res.send('Route Working')
-      console.log(__dirname + '/controllers/PartsController.js')
-    })
+    app.get('/part', partsController.get_parts)
   } finally {
   }
 }
