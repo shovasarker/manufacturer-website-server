@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 })
 app.put('/user/:email', userController.update_user)
 app.get('/part', partsController.get_parts)
+app.get('/part/search', partsController.get_part_by_name)
 
 app.listen(port, () => {
   console.log('Server is Ruuning on port, ', port)
