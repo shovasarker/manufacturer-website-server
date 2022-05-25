@@ -17,10 +17,12 @@ app.get('/', (req, res) => {
 
 const run = async () => {
   try {
-    await client.connect()
+    // await client.connect()
     app.put('/user/:email', userController.update_user)
 
-    app.get('/part', partsController.get_parts)
+    app.get('/part', (req, res) => {
+      console.log(userController, partsController, client)
+    })
   } finally {
   }
 }
