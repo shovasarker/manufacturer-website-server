@@ -1,10 +1,18 @@
+const { connect } = require('../client.js')
 const client = require('../client.js')
 
 const partsCollection = client.db('abacus-parts').collection('parts')
 
 exports.get_parts = async (req, res) => {
-  const query = {}
-  //   const result = await partsCollection.find(query).toArray()
+  try {
+    await client.connect()
+    const query = {}
+    const result = await partsCollection.find(query).toArray()
 
-  res.send({ message: 'Connected' })
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await connect.close()
+  }
 }
