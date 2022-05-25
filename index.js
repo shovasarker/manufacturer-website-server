@@ -23,7 +23,7 @@ app.get('/part/search', partsController.get_part_by_name)
 app.get('/part/:id', partsController.get_part_by_id)
 
 app.get('/review', reviewsController.get_reviews)
-app.get('/review/:email', reviewsController.get_reviews_by_email)
+app.get('/review/:email', VerifyJWT, reviewsController.get_reviews_by_email)
 
 app.post('/order', VerifyJWT, ordersController.add_new_order)
 app.get('/order/:email', VerifyJWT, ordersController.get_order_by_email)
