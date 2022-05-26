@@ -36,3 +36,30 @@ exports.update_user = async (req, res) => {
     await client.close()
   }
 }
+
+exports.get_users = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const users = await collection.find({}).toArray()
+
+    res.send(users)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}
+exports.check_admin = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const { email } = req.params
+    const user = await collection.findOne({ email })
+    const isAdmin = user.role === 'admin'
+
+    res.send({ admin: isAdmin })
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}

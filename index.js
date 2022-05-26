@@ -7,6 +7,7 @@ const reviewsController = require('./controllers/ReviewController')
 const ordersController = require('./controllers/OrderController')
 const paymentController = require('./controllers/PaymentController')
 const VerifyJWT = require('./middleware/VerifyJWT')
+const VerifyAdmin = require('./middleware/VerifyAdmin')
 
 const port = process.env.PORT || 5000
 const app = express()
@@ -18,6 +19,8 @@ app.get('/', (req, res) => {
   res.send('Manufacturer Website Server is Running')
 })
 app.put('/user/:email', userController.update_user)
+app.get('/user', VerifyJWT, VerifyAdmin, userController.get_users)
+app.get('/admin/:email', VerifyJWT, userController.check_admin)
 
 app.get('/part', partsController.get_parts)
 app.get('/part/search', partsController.get_part_by_name)
