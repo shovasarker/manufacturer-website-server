@@ -103,6 +103,24 @@ exports.update_order_by_id = async (req, res) => {
     await client.close()
   }
 }
+exports.update_order_status_by_id = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const { id } = req.params
+    const filter = { _id: ObjectId(id) }
+    const updatedDoc = {
+      $set: {
+        status: 'Shipped',
+      },
+    }
+    const updatedBooking = await collection.updateOne(filter, updatedDoc)
+    res.send(updatedBooking)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}
 
 exports.delete_order_by_id = async (req, res) => {
   try {

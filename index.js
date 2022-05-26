@@ -37,6 +37,11 @@ app.post('/order', VerifyJWT, ordersController.add_new_order)
 app.get('/order/:email', VerifyJWT, ordersController.get_order_by_email)
 app.get('/orders/:id', VerifyJWT, ordersController.get_order_by_id)
 app.patch('/order/:id', VerifyJWT, ordersController.update_order_by_id)
+app.patch(
+  '/order/status/:id',
+  VerifyJWT,
+  ordersController.update_order_status_by_id
+)
 app.delete('/order/:id', VerifyJWT, ordersController.delete_order_by_id)
 
 app.post(
