@@ -43,6 +43,40 @@ exports.update_user = async (req, res) => {
   }
 }
 
+exports.make_admin = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const { email } = req.params
+
+    const filter = { email: email }
+    const updateDoc = {
+      $set: {
+        role: 'admin',
+      },
+    }
+    const result = await collection.updateOne(filter, updateDoc)
+
+    const user = await collection.findOne({ email: email })
+    const newUser = {
+      displayName: user?.displayName,
+      email: user?.email,
+      isAdmin: true,
+    }
+    const accessToken = jwt.sign(
+      { ...newUser },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: '1d',
+      }
+    )
+
+    res.send({ result, accessToken: accessToken })
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}
 exports.get_users = async (req, res) => {
   try {
     const collection = await getCollection()

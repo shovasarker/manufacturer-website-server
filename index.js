@@ -22,6 +22,8 @@ app.put('/user/:email', userController.update_user)
 app.get('/user', VerifyJWT, VerifyAdmin, userController.get_users)
 app.get('/admin/:email', VerifyJWT, userController.check_admin)
 
+app.put('/user/admin/:email', VerifyJWT, VerifyAdmin, userController.make_admin)
+
 app.get('/part', partsController.get_parts)
 app.get('/part/search', partsController.get_part_by_name)
 app.get('/part/:id', partsController.get_part_by_id)
