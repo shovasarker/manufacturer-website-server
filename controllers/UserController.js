@@ -49,6 +49,7 @@ exports.get_users = async (req, res) => {
     await client.close()
   }
 }
+
 exports.check_admin = async (req, res) => {
   try {
     const collection = await getCollection()
