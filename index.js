@@ -40,6 +40,7 @@ app.patch('/order/:id', VerifyJWT, ordersController.update_order_by_id)
 app.patch(
   '/order/status/:id',
   VerifyJWT,
+  VerifyAdmin,
   ordersController.update_order_status_by_id
 )
 app.delete('/order/:id', VerifyJWT, ordersController.delete_order_by_id)
