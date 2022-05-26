@@ -53,3 +53,19 @@ exports.get_part_by_id = async (req, res) => {
     await client.close()
   }
 }
+
+exports.delete_part_by_id = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const { id } = req.params
+
+    const filter = { _id: ObjectId(id) }
+    const result = await collection.deleteOne(filter)
+
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}

@@ -27,6 +27,12 @@ app.put('/user/admin/:email', VerifyJWT, VerifyAdmin, userController.make_admin)
 app.get('/part', partsController.get_parts)
 app.get('/part/search', partsController.get_part_by_name)
 app.get('/part/:id', partsController.get_part_by_id)
+app.delete(
+  '/part/:id',
+  VerifyJWT,
+  VerifyAdmin,
+  partsController.delete_part_by_id
+)
 
 app.post('/review', VerifyJWT, reviewsController.add_review)
 app.get('/review', reviewsController.get_reviews)
