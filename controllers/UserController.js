@@ -25,9 +25,15 @@ exports.update_user = async (req, res) => {
 
     const result = await collection.updateOne(filter, updatedDoc, options)
 
-    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: '1d',
-    })
+    const admin = await collection.findOne({ email: user?.email })
+    const isAdmin = admin?.role === 'admin'
+    const accessToken = jwt.sign(
+      { ...user, isAdmin },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: '1d',
+      }
+    )
 
     res.send({ result, accessToken: accessToken })
   } catch (error) {
@@ -60,6 +66,24 @@ exports.check_admin = async (req, res) => {
     res.send({ admin: isAdmin })
   } catch (error) {
     console.log(error)
+  } finally {
+    await client.close()
+  }
+}
+
+module.verify_admin = async (req, res, next) => {
+  try {
+    const collection = await getCollection()
+    const requestor = req.decoded.email
+    const query = { email: requestor }
+    const requestorAccount = await collection.findOne(query)
+
+    if (requestorAccount.role !== 'admin') {
+      return res.status(403).send({ message: 'Forbidden Request' })
+    }
+
+    next()
+  } catch (error) {
   } finally {
     await client.close()
   }
