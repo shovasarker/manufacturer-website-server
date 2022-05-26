@@ -90,6 +90,25 @@ exports.get_users = async (req, res) => {
   }
 }
 
+exports.get_user_by_email = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const { email } = req.params
+    const decodedEmail = req.decoded.email
+    if (email !== decodedEmail) {
+      return res.status(403).send({ message: 'Forbidden Access' })
+    }
+    const query = { email: email }
+    const user = await collection.findOne(query)
+
+    res.send(user)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}
+
 exports.check_admin = async (req, res) => {
   try {
     const collection = await getCollection()

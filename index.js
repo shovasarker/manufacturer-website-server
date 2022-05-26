@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
   res.send('Manufacturer Website Server is Running')
 })
 app.put('/user/:email', userController.update_user)
+app.get('/user/:email', VerifyJWT, userController.get_user_by_email)
 app.get('/user', VerifyJWT, VerifyAdmin, userController.get_users)
 app.get('/admin/:email', VerifyJWT, userController.check_admin)
 
