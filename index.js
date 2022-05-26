@@ -33,6 +33,7 @@ app.delete(
   VerifyAdmin,
   partsController.delete_part_by_id
 )
+app.post('/part', VerifyJWT, VerifyAdmin, partsController.add_part)
 
 app.post('/review', VerifyJWT, reviewsController.add_review)
 app.get('/review', reviewsController.get_reviews)

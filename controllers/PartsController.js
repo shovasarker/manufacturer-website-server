@@ -20,6 +20,19 @@ exports.get_parts = async (req, res) => {
     await client.close()
   }
 }
+exports.add_part = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const part = req.body
+    const result = await collection.insertOne(part)
+
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}
 
 exports.get_part_by_name = async (req, res) => {
   try {
