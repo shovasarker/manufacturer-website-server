@@ -5,6 +5,7 @@ const userController = require('./controllers/UserController')
 const partsController = require('./controllers/PartsController')
 const reviewsController = require('./controllers/ReviewController')
 const ordersController = require('./controllers/OrderController')
+const paymentController = require('./controllers/PaymentController')
 const VerifyJWT = require('./middleware/VerifyJWT')
 
 const port = process.env.PORT || 5000
@@ -29,7 +30,14 @@ app.get('/review/:email', VerifyJWT, reviewsController.get_reviews_by_email)
 app.post('/order', VerifyJWT, ordersController.add_new_order)
 app.get('/order/:email', VerifyJWT, ordersController.get_order_by_email)
 app.get('/order/:id', VerifyJWT, ordersController.get_order_by_id)
+app.patch('/order/:id', VerifyJWT, ordersController.update_order_by_id)
 app.delete('/order/:id', VerifyJWT, ordersController.delete_order_by_id)
+
+app.get(
+  '/create-payment-intent',
+  VerifyJWT,
+  paymentController.create_payment_intent
+)
 
 app.listen(port, () => {
   console.log('Server is Ruuning on port, ', port)
