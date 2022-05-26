@@ -31,6 +31,19 @@ exports.add_new_order = async (req, res) => {
   }
 }
 
+exports.get_all_orders = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const query = {}
+    const result = await collection.find(query).toArray()
+
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}
 exports.get_order_by_email = async (req, res) => {
   try {
     const collection = await getCollection()

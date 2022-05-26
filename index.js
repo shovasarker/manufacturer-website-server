@@ -32,6 +32,7 @@ app.post('/review', VerifyJWT, reviewsController.add_review)
 app.get('/review', reviewsController.get_reviews)
 app.get('/review/:email', VerifyJWT, reviewsController.get_reviews_by_email)
 
+app.get('/order', VerifyJWT, VerifyAdmin, ordersController.get_all_orders)
 app.post('/order', VerifyJWT, ordersController.add_new_order)
 app.get('/order/:email', VerifyJWT, ordersController.get_order_by_email)
 app.get('/orders/:id', VerifyJWT, ordersController.get_order_by_id)
