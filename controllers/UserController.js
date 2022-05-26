@@ -42,6 +42,26 @@ exports.update_user = async (req, res) => {
     await client.close()
   }
 }
+exports.update_user_profile = async (req, res) => {
+  try {
+    const collection = await getCollection()
+    const user = req.body
+    const { email } = req.params
+    const filter = { email: email }
+    const updatedDoc = {
+      $set: {
+        ...user,
+      },
+    }
+    const result = await collection.updateOne(filter, updatedDoc)
+
+    res.send(result)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    await client.close()
+  }
+}
 
 exports.make_admin = async (req, res) => {
   try {

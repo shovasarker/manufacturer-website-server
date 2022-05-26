@@ -21,8 +21,9 @@ app.get('/', (req, res) => {
 app.put('/user/:email', userController.update_user)
 app.get('/user/:email', VerifyJWT, userController.get_user_by_email)
 app.get('/user', VerifyJWT, VerifyAdmin, userController.get_users)
-app.get('/admin/:email', VerifyJWT, userController.check_admin)
+app.patch('/user/profile/:email', VerifyJWT, userController.update_user_profile)
 
+app.get('/admin/:email', VerifyJWT, userController.check_admin)
 app.put('/user/admin/:email', VerifyJWT, VerifyAdmin, userController.make_admin)
 
 app.get('/part', partsController.get_parts)
